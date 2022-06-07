@@ -2,10 +2,12 @@
   "name": "git-batch-clone",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "type": "module",
   "bin": {
     "gitlab-clone": "lib/gitlab-clone.js"
   },
@@ -32,6 +34,11 @@
     "execa": "6.1.0"
   },
   "devDependencies": {
-    "@planjs/fabric": "0.0.93"
+    "@planjs/fabric": "0.0.93",
+    "@planjs/utils": "1.15.6",
+    "typescript": "4.7.3"
+  },
+  "engines": {
+    "node": ">=14.16"
   }
 }
