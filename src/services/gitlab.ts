@@ -23,26 +23,32 @@ export type ProjectItem = {
 };
 
 // see https://docs.gitlab.com/ee/api/projects.html#list-all-projects
-export async function getAccessProjectList() {
+export async function getAllAuthorizedProjectList() {
   let page = 1;
-  const per_page = 50;
+  const per_page = 20;
   const projectList: ProjectItem[] = [];
 
-  while (projectList.length === (page - 1) * 50) {
+  let total;
+  let totalPage;
+
+  while (projectList.length === (page - 1) * per_page) {
     projectList.push(
       ...(await retry(
         () => {
-          return got
-            .get(`${process.env.GITLAB_URL}/api/v4/projects`, {
-              headers: {
-                [TOKEN_KEY]: process.env.GITLAB_TOKEN,
-              },
-              searchParams: {
-                page,
-                per_page,
-              },
-            })
-            .json<ProjectItem[]>();
+          const res = got.get(`${process.env.GITLAB_URL}/api/v4/projects`, {
+            headers: {
+              [TOKEN_KEY]: process.env.GITLAB_TOKEN,
+            },
+            searchParams: {
+              page,
+              per_page,
+            },
+          });
+          res.then((rsp) => {
+            totalPage = rsp.headers["x-total-pages"];
+            total = rsp.headers["x-total"];
+          });
+          return res.json<ProjectItem[]>();
         },
         {
           maxAttempts: 3,
@@ -51,7 +57,9 @@ export async function getAccessProjectList() {
       )())
     );
     await delay(100);
+    console.log(`[gitlab] Get page ${page}/${totalPage} successfully.`);
     page++;
   }
+  console.log(`[gitlab] Successfully requested ${total} project.`);
   return projectList;
 }

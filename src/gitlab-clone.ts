@@ -1,10 +1,14 @@
 #!/usr/bin/env node
 
-import { getAccessProjectList } from "./services/gitlab.js";
+import "./env.js";
+import { getAllAuthorizedProjectList } from "./services/gitlab.js";
 
 async function main() {
-  const projectList = await getAccessProjectList();
+  const projectList = await getAllAuthorizedProjectList();
   console.log(projectList.map((v) => v.id));
 }
 
-main();
+main().catch((err) => {
+  console.log(err);
+  process.exit(1);
+});

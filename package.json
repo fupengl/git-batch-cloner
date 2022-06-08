@@ -31,7 +31,9 @@
   "homepage": "https://github.com/fupengl/git-batch-clone#readme",
   "dependencies": {
     "got": "12.1.0",
-    "execa": "6.1.0"
+    "execa": "6.1.0",
+    "yargs-parser": "21.0.1",
+    "dotenv": "16.0.1"
   },
   "devDependencies": {
     "@planjs/fabric": "0.0.93",
