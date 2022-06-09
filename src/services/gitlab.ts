@@ -13,6 +13,7 @@ export type ProjectItem = {
   web_url: string;
   ssh_url_to_repo: string;
   http_url_to_repo: string;
+  path_with_namespace: string;
   namespace?: {
     id: number;
     name: string;
