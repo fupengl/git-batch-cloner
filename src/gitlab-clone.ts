@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
 import { resolve, join } from "path";
-import { execaSync } from "execa";
+import { execa } from "execa";
+import { retry, pTry } from "@planjs/utils";
 
 import "./env.js";
 import argv from "./argv.js";
@@ -12,13 +13,22 @@ async function main() {
 
   const projectList = await getAllAuthorizedProjectList();
   for (const project of projectList) {
-    execaSync(
-      "git",
-      ["clone", project.ssh_url_to_repo, project.path_with_namespace],
-      {
-        cwd: resolve(join(process.cwd(), args.output || "repo")),
-        stdio: "inherit",
-      }
+    await pTry(
+      retry(
+        () =>
+          execa(
+            "git",
+            ["clone", project.ssh_url_to_repo, project.path_with_namespace],
+            {
+              cwd: resolve(join(process.cwd(), args.output || "repo")),
+              stdio: "inherit",
+            }
+          ),
+        {
+          maxAttempts: 5,
+          delayMs: 1000,
+        }
+      )()
     );
   }
 }
