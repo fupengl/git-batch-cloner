@@ -6,10 +6,14 @@ import { retry, pTry } from "@planjs/utils";
 
 import "./env.js";
 import argv from "./argv.js";
+import { mkdirSync } from "./utils.js";
 import { getAllAuthorizedProjectList } from "./services/gitlab.js";
 
 async function main() {
   const args = argv();
+
+  const cwd = resolve(join(process.cwd(), args.output || "repo"));
+  mkdirSync(cwd);
 
   const projectList = await getAllAuthorizedProjectList();
   for (const project of projectList) {
@@ -20,7 +24,7 @@ async function main() {
             "git",
             ["clone", project.ssh_url_to_repo, project.path_with_namespace],
             {
-              cwd: resolve(join(process.cwd(), args.output || "repo")),
+              cwd,
               stdio: "inherit",
             }
           ),
