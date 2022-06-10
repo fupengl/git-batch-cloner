@@ -6,11 +6,18 @@ import { retry, pTry } from "@planjs/utils";
 
 import "./env.js";
 import argv from "./argv.js";
-import { mkdirSync } from "./utils.js";
+import { mkdirSync, safeSetEnv } from "./utils.js";
 import { getAllAuthorizedProjectList } from "./services/gitlab.js";
 
 async function main() {
-  const args = argv();
+  const args = argv<{
+    url: string;
+    token: string;
+    output: string;
+  }>();
+
+  safeSetEnv("GITLAB_URL", args.url);
+  safeSetEnv("GITLAB_TOKEN", args.token);
 
   const cwd = resolve(join(process.cwd(), args.output || "repo"));
   mkdirSync(cwd);

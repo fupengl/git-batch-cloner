@@ -1,5 +1,5 @@
 {
-  "name": "git-batch-clone",
+  "name": "git-batch-cloner",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -9,7 +9,7 @@
   },
   "type": "module",
   "bin": {
-    "gitlab-clone": "lib/gitlab-clone.js"
+    "gitlab-cloner": "lib/gitlab-clone.js"
   },
   "repository": {
     "type": "git",
