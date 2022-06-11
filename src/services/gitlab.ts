@@ -32,10 +32,7 @@ export async function getAllAuthorizedProjectList() {
   let total;
   let totalPage;
 
-  while (
-    projectList.length === (page - 1) * per_page &&
-    projectList.length < 10
-  ) {
+  while (projectList.length === (page - 1) * per_page) {
     projectList.push(
       ...(await retry(
         () => {
