@@ -5,27 +5,27 @@ import { execa } from "execa";
 import { retry, pTry } from "@planjs/utils";
 import chalk from "chalk";
 
-import "./env.js";
+import setupENV from "./env.js";
 import argv from "./argv.js";
 import { mkdirSync, safeSetEnv } from "./utils.js";
 import { getAllAuthorizedProjectList } from "./services/gitlab.js";
 
 async function main() {
-  const args = argv<{
-    url: string;
-    token: string;
-    output: string;
-  }>();
+  const args = argv();
+  setupENV({
+    path: args.config,
+  });
 
+  // set proceee.env
   safeSetEnv("GITLAB_URL", args.url);
   safeSetEnv("GITLAB_TOKEN", args.token);
 
-  const cwd = resolve(join(process.cwd(), args.output || "repo"));
-  mkdirSync(cwd);
+  const cwd = resolve(join(process.cwd(), args.output || "workspace"));
 
   const projectList = await getAllAuthorizedProjectList();
   if (projectList.length) {
     console.log(chalk.green(`Start cloning ${projectList.length} projects.`));
+    mkdirSync(cwd);
   } else {
     console.log(chalk.yellow("No project fund."));
   }

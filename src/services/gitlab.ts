@@ -36,15 +36,18 @@ export async function getAllAuthorizedProjectList() {
     projectList.push(
       ...(await retry(
         () => {
-          const res = got.get(`${process.env.GITLAB_URL}/api/v4/projects`, {
-            headers: {
-              [TOKEN_KEY]: process.env.GITLAB_TOKEN,
-            },
-            searchParams: {
-              page,
-              per_page,
-            },
-          });
+          const res = got.get(
+            `${process.env.GITLAB_URL || process.env.URL}/api/v4/projects`,
+            {
+              headers: {
+                [TOKEN_KEY]: process.env.GITLAB_TOKEN || process.env.TOKEN,
+              },
+              searchParams: {
+                page,
+                per_page,
+              },
+            }
+          );
           res.then((rsp) => {
             totalPage = rsp.headers["x-total-pages"];
             total = rsp.headers["x-total"];

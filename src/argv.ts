@@ -1,6 +1,16 @@
 import yargs from "yargs-parser";
+import { safeSetEnv } from "./utils.js";
 
-export default function <T extends Record<string, any>>() {
-  const argv = yargs(process.argv);
-  return argv as unknown as T;
+type Args = {
+  url?: string;
+  token?: string;
+  output?: string;
+  config?: string;
+};
+
+export default function () {
+  const argv = yargs(process.argv) as yargs.Arguments & Args;
+  safeSetEnv("URL", argv.url!);
+  safeSetEnv("TOKEN", argv.token!);
+  return argv;
 }

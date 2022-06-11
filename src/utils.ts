@@ -9,7 +9,7 @@ export function mkdirSync(p: string) {
   emkdirSync(p);
 }
 
-export function safeSetEnv(k: string, v: string, f = false) {
+export function safeSetEnv(k: string, v?: string, f = false) {
   if (v && !f) {
     process.env[k] = v;
   }
