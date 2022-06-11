@@ -25,14 +25,20 @@ async function main() {
 
   const projectList = await getAllAuthorizedProjectList();
   if (projectList.length) {
-    console.log(chalk.green("Start clone project task."));
+    console.log(chalk.green(`Start cloning ${projectList.length} projects.`));
   } else {
     console.log(chalk.yellow("No project fund."));
   }
+  let i = 0;
   const errors: Error[] = [];
   for (const project of projectList) {
+    i++;
     console.log(
-      chalk.green(`------------ Start cloning ${project.name} ------------`)
+      chalk.green(
+        `------------ Start cloning ${project.name} ${i}${
+          projectList.length + 1
+        } ------------`
+      )
     );
     const [err] = await pTry(
       retry(
