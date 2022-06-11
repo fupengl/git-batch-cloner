@@ -1,4 +1,6 @@
-import { existsSync, lstatSync, mkdirSync as emkdirSync } from "fs-extra";
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+const { existsSync, lstatSync, mkdirSync: emkdirSync } = require("fs-extra");
 
 export function mkdirSync(p: string) {
   if (existsSync(p) && lstatSync(p).isDirectory()) {

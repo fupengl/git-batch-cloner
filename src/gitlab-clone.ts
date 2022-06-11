@@ -3,6 +3,7 @@
 import { resolve, join } from "path";
 import { execa } from "execa";
 import { retry, pTry } from "@planjs/utils";
+import chalk from "chalk";
 
 import "./env.js";
 import argv from "./argv.js";
@@ -23,8 +24,17 @@ async function main() {
   mkdirSync(cwd);
 
   const projectList = await getAllAuthorizedProjectList();
+  if (projectList.length) {
+    console.log(chalk.green("Start clone project task."));
+  } else {
+    console.log(chalk.yellow("No project fund."));
+  }
+  const errors: Error[] = [];
   for (const project of projectList) {
-    await pTry(
+    console.log(
+      chalk.green(`------------ Start cloning ${project.name} ------------`)
+    );
+    const [err] = await pTry(
       retry(
         () =>
           execa(
@@ -40,6 +50,17 @@ async function main() {
           delayMs: 1000,
         }
       )()
+    );
+    if (err) {
+      console.log(err);
+      errors.push(err);
+    }
+  }
+  if (projectList.length) {
+    console.log(
+      chalk.green(
+        `Complete the task, successfully clone ${projectList.length}, fail ${errors.length}`
+      )
     );
   }
 }
