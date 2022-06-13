@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/fupengl/git-batch-clone/compare/v1.4.0...v1.6.0) (2022-06-13)
+
+
+### Features
+
+* support only clone group ([a7ca492](https://github.com/fupengl/git-batch-clone/commit/a7ca4926d7ac8190aa7873dd1893412f29d267fe))
+
+
+### Bug Fixes
+
+* group subpackage ([280ba11](https://github.com/fupengl/git-batch-clone/commit/280ba11d2c419e0926ec7d242381845e3c8d47de))
+
 ## [1.5.0](https://github.com/fupengl/git-batch-clone/compare/v1.1.0...v1.5.0) (2022-06-13)
 
 
