@@ -1,6 +1,6 @@
 {
   "name": "git-batch-cloner",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "",
   "scripts": {
     "build": "tsc",
