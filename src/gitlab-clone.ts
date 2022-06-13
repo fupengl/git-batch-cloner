@@ -53,7 +53,11 @@ async function main() {
         () =>
           execa(
             "git",
-            ["clone", project.ssh_url_to_repo, project.path_with_namespace],
+            [
+              "clone",
+              args.useSSH ? project.ssh_url_to_repo : project.http_url_to_repo,
+              project.path_with_namespace,
+            ],
             {
               cwd,
               stdio: "inherit",

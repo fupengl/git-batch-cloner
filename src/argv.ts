@@ -6,6 +6,7 @@ type Args = {
   token?: string;
   output?: string;
   config?: string;
+  useSSH?: boolean;
 };
 
 export default function () {
