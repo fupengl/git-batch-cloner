@@ -55,7 +55,7 @@ export async function getGroupProjectList(...groupIdList: number[]) {
       (page, per_page) =>
         got.get(`${params.url}/api/v4/groups/${groupId}/projects`, {
           headers: { [TOKEN_KEY]: params.token },
-          searchParams: { page, per_page },
+          searchParams: { page, per_page, include_subgroups: true },
         })
     );
     total += subTotal;
