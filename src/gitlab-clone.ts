@@ -8,7 +8,10 @@ import chalk from "chalk";
 import setupENV from "./env.js";
 import argv from "./argv.js";
 import { mkdirSync, safeSetEnv } from "./utils.js";
-import { getAllAuthorizedProjectList } from "./services/gitlab.js";
+import {
+  getAllAuthorizedProjectList,
+  getGroupProjectList,
+} from "./services/gitlab.js";
 
 async function main() {
   const args = argv();
@@ -30,7 +33,17 @@ async function main() {
     )
   );
 
-  const projectList = await getAllAuthorizedProjectList();
+  const groupListStr: string =
+    args?.groupIds ||
+    process.env.GITLAB_GROUP_ID_LIST! ||
+    process.env.GROUP_ID_LIST!;
+  let groupIdList = groupListStr
+    ? groupListStr.split(/,|，|\s+/).map((v) => +v)
+    : [];
+
+  const projectList = groupListStr
+    ? await getGroupProjectList(...groupIdList)
+    : await getAllAuthorizedProjectList();
   if (projectList.length) {
     console.log(chalk.green(`Start cloning ${projectList.length} projects.`));
     mkdirSync(cwd);
@@ -55,7 +68,9 @@ async function main() {
             "git",
             [
               "clone",
-              args.useSSH ? project.ssh_url_to_repo : project.http_url_to_repo,
+              Boolean(args.useSSH)
+                ? project.ssh_url_to_repo
+                : project.http_url_to_repo,
               project.path_with_namespace,
             ],
             {
