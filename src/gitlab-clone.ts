@@ -20,7 +20,15 @@ async function main() {
   safeSetEnv("GITLAB_URL", args.url);
   safeSetEnv("GITLAB_TOKEN", args.token);
 
-  const cwd = resolve(join(process.cwd(), args.output || "workspace"));
+  const cwd = resolve(
+    join(
+      process.cwd(),
+      args.output ||
+        process.env.GITLAB_OUTPUT ||
+        process.env.OUTPUT ||
+        "workspace"
+    )
+  );
 
   const projectList = await getAllAuthorizedProjectList();
   if (projectList.length) {

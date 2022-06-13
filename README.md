@@ -26,4 +26,5 @@ gitlab-clone --url=https://gitlab-url --token="your person token" --output="./re
 # .env file
 URL=https://gitlab-url
 TOKEN=your person token
+OUTPUT=clone target dir
 ```

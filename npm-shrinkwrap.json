@@ -20,7 +20,7 @@
         "yargs-parser": "21.0.1"
       },
       "bin": {
-        "gitlab-cloner": "lib/gitlab-clone.js"
+        "gitlab-clone": "lib/gitlab-clone.js"
       },
       "devDependencies": {
         "@planjs/fabric": "0.0.93",
