@@ -67,7 +67,7 @@ export async function getGroupProjectList(...groupIdList: number[]) {
 
 function getGlobalParams() {
   return {
-    url: process.env.GITLAB_URL || process.env.URL,
+    url: process.env.GITLAB_URL || process.env.URL || "https://gitlab.com",
     token: process.env.GITLAB_TOKEN || process.env.TOKEN,
   };
 }
