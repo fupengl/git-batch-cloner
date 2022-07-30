@@ -1,6 +1,6 @@
 {
   "name": "git-batch-cloner",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "",
   "scripts": {
     "build": "tsc",
@@ -18,7 +18,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fupengl/git-batch-clone.git"
+    "url": "git+https://github.com/fupengl/git-batch-cloner.git"
   },
   "publishConfig": {
     "access": "public"
@@ -31,9 +31,9 @@
   "keywords": [],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/fupengl/git-batch-clone/issues"
+    "url": "https://github.com/fupengl/git-batch-cloner/issues"
   },
-  "homepage": "https://github.com/fupengl/git-batch-clone#readme",
+  "homepage": "https://github.com/fupengl/git-batch-cloner#readme",
   "dependencies": {
     "@planjs/utils": "1.15.6",
     "@types/yargs-parser": "21.0.0",
