@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.1](https://github.com/fupengl/git-batch-clone/compare/v1.6.0...v1.6.1) (2022-07-30)
+
+
+### Bug Fixes
+
+* gitlab add default url ([a843fee](https://github.com/fupengl/git-batch-clone/commit/a843fee05ebc0df950c2c69153f102ae306fb96b))
+
 ## [1.6.0](https://github.com/fupengl/git-batch-clone/compare/v1.4.0...v1.6.0) (2022-06-13)
 
 
