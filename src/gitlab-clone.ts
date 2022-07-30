@@ -1,13 +1,18 @@
 #!/usr/bin/env node
 
 import { resolve, join } from "path";
-import { execa } from "execa";
 import { retry, pTry } from "@planjs/utils";
 import chalk from "chalk";
 
 import setupENV from "./env.js";
 import argv from "./argv.js";
-import { mkdirSync, safeSetEnv } from "./utils.js";
+import {
+  mkdirSync,
+  safeSetEnv,
+  gitClone,
+  checkGitRepoExists,
+  fetchExistsRepo,
+} from "./utils.js";
 import {
   getAllAuthorizedProjectList,
   getGroupProjectList,
@@ -61,32 +66,33 @@ async function main() {
         } ------------`
       )
     );
-    const [err] = await pTry(
-      retry(
-        () =>
-          execa(
-            "git",
-            [
-              "clone",
-              Boolean(args.useSSH)
-                ? project.ssh_url_to_repo
-                : project.http_url_to_repo,
-              project.path_with_namespace,
-            ],
-            {
-              cwd,
-              stdio: "inherit",
-            }
-          ),
-        {
-          maxAttempts: 5,
-          delayMs: 1000,
-        }
-      )()
-    );
-    if (err) {
-      console.log(err);
-      errors.push(err);
+    const url = Boolean(args.useSSH)
+      ? project.ssh_url_to_repo
+      : project.http_url_to_repo;
+    const isExist = checkGitRepoExists(url, project.path_with_namespace, cwd);
+    if (!isExist) {
+      const [err] = await pTry(
+        retry(
+          () =>
+            Promise.resolve(
+              gitClone(url, project.path_with_namespace, {
+                cwd,
+              })
+            ),
+          {
+            maxAttempts: 5,
+            delayMs: 1000,
+          }
+        )()
+      );
+      if (err) {
+        console.log(err);
+        errors.push(err);
+      }
+    } else {
+      console.log(`"${project.path_with_namespace}" already exists.`);
+      const targetPath = resolve(cwd, project.path_with_namespace);
+      fetchExistsRepo(targetPath);
     }
   }
   if (projectList.length) {
