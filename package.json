@@ -1,7 +1,7 @@
 {
   "name": "git-batch-cloner",
   "version": "1.6.2",
-  "description": "",
+  "description": "Clone all repositories that you have permission to",
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
@@ -35,7 +35,7 @@
   },
   "homepage": "https://github.com/fupengl/git-batch-cloner#readme",
   "dependencies": {
-    "@planjs/utils": "1.15.6",
+    "@planjs/utils": "1.15.12",
     "@types/yargs-parser": "21.0.0",
     "dotenv": "16.0.1",
     "execa": "6.1.0",
