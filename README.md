@@ -12,7 +12,7 @@ npm install git-batch-cloner -g
 Using yarn:
 
 ```console
-yarn add git-batch-cloner -g
+yarn global add git-batch-cloner
 ```
 
 ## Usage
