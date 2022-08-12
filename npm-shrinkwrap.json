@@ -1537,9 +1537,9 @@
       }
     },
     "@planjs/utils": {
-      "version": "1.15.12",
-      "resolved": "https://registry.npmjs.org/@planjs/utils/-/utils-1.15.12.tgz",
-      "integrity": "sha512-Jcpt6AjDvwua5+B9fdPLgPUiUEyYsI5RvCUJ8jjrzz7dokUD4buRAEOSaSPQ69jqJxtPVdAi4n6A6tJ9DyPhMg==",
+      "version": "1.15.15",
+      "resolved": "https://registry.npmjs.org/@planjs/utils/-/utils-1.15.15.tgz",
+      "integrity": "sha512-Yz8tRS3d3vKc7eSw+ssuva0syCZM9GVyFuvCJnjy1TJvobe/vTKsr8O0NVlsObxGHCwVxXbvRZNCmgYbC/jZBw==",
       "requires": {
         "@babel/runtime": "^7.15.4",
         "@types/lodash.clonedeep": "^4.5.6",
