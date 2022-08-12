@@ -1,6 +1,6 @@
 {
   "name": "git-batch-cloner",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "description": "Clone all repositories that you have permission to",
   "scripts": {
     "build": "tsc",

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.6.3 (2022-08-12)
+
+
+### Bug Fixes
+
+* ts compile error ([905ecd4](https://github.com/fupengl/git-batch-cloner/commit/905ecd4dda55f175db25cf38755f712f18b399e0))
+
 ### [1.6.2](https://github.com/fupengl/git-batch-cloner/compare/v1.6.1...v1.6.2) (2022-07-30)
 
 ### [1.6.1](https://github.com/fupengl/git-batch-clone/compare/v1.6.0...v1.6.1) (2022-07-30)
