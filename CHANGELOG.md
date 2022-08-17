@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.6.7 (2022-08-17)
+
+
+### Bug Fixes
+
+* gitlab token check ([6cc25fb](https://github.com/fupengl/git-batch-cloner/commit/6cc25fb6bd8fb161009a03eaa7ac4a40de7494f2))
+
 ### 1.6.6 (2022-08-17)
 
 
