@@ -19,9 +19,9 @@ yarn global add git-batch-cloner
 
 ### Gitlab
 ```sh
-gitlab-clone --url=https://gitlab-url --token="your person token" --output="./repo"
+gitlab-cloner --url=https://gitlab-url --token="your person token" --output="./repo"
 # Specify the configuration file
-gitlab-clone --config=./.gitlab.env
+gitlab-cloner --config=./.gitlab.env
 ```
 
 ## Using dotenv parameters

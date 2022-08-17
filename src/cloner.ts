@@ -1,4 +1,4 @@
-import { resolve } from "path";
+import { resolve } from "node:path";
 import { retry } from "@planjs/utils";
 
 import { gitClone, checkGitRepoExists, fetchExistsRepo } from "./utils.js";

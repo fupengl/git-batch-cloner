@@ -1,5 +1,5 @@
-import { createRequire } from "module";
-import { resolve, join } from "path";
+import { createRequire } from "node:module";
+import { resolve, join } from "node:path";
 import { execaSync } from "execa";
 import type { SyncOptions } from "execa";
 

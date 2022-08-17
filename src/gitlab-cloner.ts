@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
-import { resolve, join } from "path";
+import { resolve, join } from "node:path";
 import { pTry } from "@planjs/utils";
 import chalk from "chalk";
 
 import setupENV from "./env.js";
 import argv from "./argv.js";
 import { mkdirSync, safeSetEnv } from "./utils.js";
-import cloner from "./cloner";
+import cloner from "./cloner.js";
 import {
   getAllAuthorizedProjectList,
   getGroupProjectList,

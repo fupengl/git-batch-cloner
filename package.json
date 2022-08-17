@@ -11,7 +11,7 @@
   },
   "type": "module",
   "bin": {
-    "gitlab-clone": "lib/gitlab-clone.js"
+    "gitlab-cloner": "lib/gitlab-cloner.js"
   },
   "files": [
     "lib/"
