@@ -1,3 +1,4 @@
+import assert from "node:assert";
 import got from "got";
 import type { CancelableRequest, Response } from "got";
 import { delay, retry } from "@planjs/utils";
@@ -31,6 +32,7 @@ export type ProjectItem = {
  */
 export async function getAllAuthorizedProjectList() {
   const params = getGlobalParams();
+  assert(params.token, "gitlab token is required.");
   const { projectList } = await getProjectList((page, per_page) =>
     got.get(`${params.url}/api/v4/projects`, {
       headers: { [TOKEN_KEY]: params.token },
@@ -94,13 +96,13 @@ async function getProjectList(
   while (projectList.length === (page - 1) * per_page) {
     projectList.push(
       ...(await retry(
-        () => {
+        async () => {
           const res = services(page, per_page);
-          res.then((rsp) => {
+          await res.then((rsp) => {
             totalPage = rsp.headers["x-total-pages"];
             total = +rsp.headers["x-total"]! || 0;
           });
-          return res.json<ProjectItem[]>();
+          return await res.json<ProjectItem[]>();
         },
         { maxAttempts: 3, delayMs: 1000 }
       )())
