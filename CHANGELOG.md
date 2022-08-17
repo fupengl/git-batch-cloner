@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.6.4 (2022-08-17)
+
+
+### Bug Fixes
+
+* node 14 error ([29891d6](https://github.com/fupengl/git-batch-cloner/commit/29891d6480e60a109cc2a592f795c56456f6294b))
+
 ### 1.6.3 (2022-08-12)
 
 
