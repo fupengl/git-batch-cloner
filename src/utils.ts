@@ -32,20 +32,35 @@ export function checkGitRepoIsClean(opts?: SyncOptions) {
   );
 }
 
+/**
+ *
+ * @param url 克隆仓库地址
+ * @param target 克隆目标位置
+ * @param cwd 执行目录
+ * @returns {
+ *    exitsRepo 是否存在仓库
+ *    isCurrentRepo 本地仓库remote url不是目标仓库地址
+ * }
+ */
 export function checkGitRepoExists(
   url: string,
   target: string,
   cwd = process.cwd()
 ) {
   const targetPath = resolve(cwd, target);
-  if (
-    existsSync(targetPath) &&
-    existsSync(join(targetPath, ".git")) &&
-    execaSync("git", ["remote", "-v"], { cwd: targetPath }).stdout.includes(url)
-  ) {
-    return true;
-  }
-  return false;
+  const result = {
+    exitsRepo: existsSync(join(targetPath, ".git/config")),
+    isCurrentRepo: false,
+  };
+
+  try {
+    if (result.exitsRepo) {
+      result.isCurrentRepo = execaSync("git", ["remote", "-v"], {
+        cwd: targetPath,
+      }).stdout.includes(url);
+    }
+  } catch (e) {}
+  return result;
 }
 
 export function fetchExistsRepo(cwd: string) {
