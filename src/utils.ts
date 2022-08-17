@@ -32,6 +32,14 @@ export function checkGitRepoIsClean(opts?: SyncOptions) {
   );
 }
 
+function isSameRepo(gitStdout: string, url: string) {
+  // 如果使用https拉取,使用token得情况
+  // stdout origin	https://outh2:token@git.duowan.com/xxx.git (fetch)
+  // url    https://git.duowan.com/xxx.git
+  const gitUrl = url.replace(/https?:\/\//, "");
+  return gitStdout.includes(gitUrl);
+}
+
 /**
  *
  * @param url 克隆仓库地址
@@ -55,9 +63,12 @@ export function checkGitRepoExists(
 
   try {
     if (result.exitsRepo) {
-      result.isCurrentRepo = execaSync("git", ["remote", "-v"], {
-        cwd: targetPath,
-      }).stdout.includes(url);
+      result.isCurrentRepo = isSameRepo(
+        execaSync("git", ["remote", "-v"], {
+          cwd: targetPath,
+        }).stdout,
+        url
+      );
     }
   } catch (e) {}
   return result;
