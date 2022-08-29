@@ -2,6 +2,7 @@ import assert from "node:assert";
 import got from "got";
 import type { CancelableRequest, Response } from "got";
 import { delay, retry } from "@planjs/utils";
+import chalk from "chalk";
 
 const TOKEN_KEY = "PRIVATE-TOKEN";
 
@@ -16,6 +17,7 @@ export type ProjectItem = {
   ssh_url_to_repo: string;
   http_url_to_repo: string;
   path_with_namespace: string;
+  empty_repo: boolean;
   namespace?: {
     id: number;
     name: string;
@@ -32,13 +34,14 @@ export type ProjectItem = {
  */
 export async function getAllAuthorizedProjectList() {
   const params = getGlobalParams();
-  assert(params.token, "gitlab token is required.");
-  const { projectList } = await getProjectList((page, per_page) =>
+  assert(params.token, "Gitlab token is required.");
+  const { projectList, total } = await getProjectList((page, per_page) =>
     got.get(`${params.url}/api/v4/projects`, {
       headers: { [TOKEN_KEY]: params.token },
       searchParams: { page, per_page },
     })
   );
+  console.log(chalk.cyan(`[Gitlab] Successfully requested ${total} project.`));
   return projectList;
 }
 
@@ -63,7 +66,7 @@ export async function getGroupProjectList(...groupIdList: number[]) {
     total += subTotal;
     projectList.push(...list);
   }
-  console.log(`[gitlab] Successfully requested ${total} project.`);
+  console.log(chalk.cyan(`[Gitlab] Successfully requested ${total} project.`));
   return projectList;
 }
 
@@ -108,10 +111,11 @@ async function getProjectList(
       )())
     );
     await delay(100);
-    console.log(`[gitlab] Get page ${page}/${totalPage} successfully.`);
+    console.log(
+      chalk.cyan(`[Gitlab] Get page ${page}/${totalPage} successfully.`)
+    );
     page++;
   }
-  console.log(`[gitlab] Successfully requested ${total} project.`);
   return {
     projectList,
     total,

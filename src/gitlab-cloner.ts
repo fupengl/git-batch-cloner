@@ -64,6 +64,11 @@ async function main() {
         } ------------`
       )
     );
+    if (project.empty_repo) {
+      console.log(chalk.yellow(`[INFO] ${project.name} is empty skip.`));
+      console.log("");
+      continue;
+    }
     const url = Boolean(args.useSSH)
       ? project.ssh_url_to_repo
       : project.http_url_to_repo;
@@ -72,9 +77,12 @@ async function main() {
     );
     if (err) {
       console.log(err);
+      console.log(project);
       errors.push(err);
     }
     if (cloned) clonedCount++;
+
+    console.log("");
   }
 
   if (projectList.length) {
