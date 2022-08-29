@@ -76,6 +76,7 @@ export function checkGitRepoExists(
 
 export function fetchExistsRepo(cwd: string) {
   if (checkGitRepoIsClean({ cwd })) {
+    execaSync("git", ["remote", "prune", "origin"], { cwd });
     execaSync("git", ["fetch", "-a"], { cwd });
   }
   // TODO 本地有更改

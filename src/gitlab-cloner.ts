@@ -44,6 +44,7 @@ async function main() {
   const projectList = groupListStr
     ? await getGroupProjectList(...groupIdList)
     : await getAllAuthorizedProjectList();
+
   if (projectList.length) {
     console.log(chalk.green(`Start cloning ${projectList.length} projects.`));
     mkdirSync(cwd);
@@ -52,6 +53,7 @@ async function main() {
   }
 
   let i = 0;
+  let clonedCount = 0;
   const errors: Error[] = [];
   for (const project of projectList) {
     i++;
@@ -65,16 +67,20 @@ async function main() {
     const url = Boolean(args.useSSH)
       ? project.ssh_url_to_repo
       : project.http_url_to_repo;
-    const [err] = await pTry(cloner(url, project.path_with_namespace, cwd));
+    const [err, cloned] = await pTry(
+      cloner(url, project.path_with_namespace, cwd)
+    );
     if (err) {
       console.log(err);
       errors.push(err);
     }
+    if (cloned) clonedCount++;
   }
+
   if (projectList.length) {
     console.log(
       chalk.green(
-        `Complete the task, successfully clone ${projectList.length}, fail ${errors.length}`
+        `Complete the task, successfully clone ${clonedCount}, fail ${errors.length}, total ${projectList.length}`
       )
     );
   }

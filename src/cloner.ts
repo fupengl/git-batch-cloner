@@ -11,6 +11,7 @@ async function cloner(url: string, target: string, cwd = process.cwd()) {
       maxAttempts: 5,
       delayMs: 1000,
     })();
+    return true;
   } else {
     if (isCurrentRepo) {
       console.log(chalk.yellow(`[INFO] "${target}" already exists.`));
@@ -23,6 +24,7 @@ async function cloner(url: string, target: string, cwd = process.cwd()) {
   > git clone ${url} ${target}`)
       );
     }
+    return false;
     // TODO 当git仓库存在,但是不是同一个仓库,需要特殊处理
   }
 }
