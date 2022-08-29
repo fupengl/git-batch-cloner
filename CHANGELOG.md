@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.6.8 (2022-08-29)
+
+
+### Bug Fixes
+
+* update repo error ([77d23d0](https://github.com/fupengl/git-batch-cloner/commit/77d23d05fafc15c1683e5e5d78f7836a214bba23))
+
 ### 1.6.7 (2022-08-17)
 
 
