@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.7.0 (2022-08-29)
+
+
+### Features
+
+* skip empty repo ([a1641c4](https://github.com/fupengl/git-batch-cloner/commit/a1641c4afb90f9e12ffa6c28abe79bfd2077ee37))
+
 ### 1.6.8 (2022-08-29)
 
 
